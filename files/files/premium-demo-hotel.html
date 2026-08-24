@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hotel Waldschloss – Demo-Boutique-Hotel | TwinCore AI</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c1008;--surface:#141a0f;--surface2:#1a2214;--border:rgba(255,255,255,.07);--text:#f2f5ee;--muted:#8da089;--accent:#b8952a;--accent2:#d4af47;--cream:#faf6ee;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Mulish',sans-serif;line-height:1.65;overflow-x:hidden;}
+h1,h2,h3,.logo{font-family:'Playfair Display',serif;}
+a{color:inherit;}ul{list-style:none;}img{max-width:100%;display:block;}
+@media(prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
+.demo-badge{position:fixed;top:14px;right:14px;z-index:200;background:rgba(0,0,0,.6);color:var(--accent2);font-size:.68rem;letter-spacing:.05em;padding:.4rem .7rem;border-radius:999px;border:1px solid var(--accent);backdrop-filter:blur(6px);pointer-events:none;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.4rem 2.5rem;display:flex;align-items:center;justify-content:space-between;transition:background .3s,padding .3s;}
+nav.scrolled{padding:1rem 2.5rem;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1200px;margin:auto;}
+.logo{font-size:1.25rem;font-weight:700;text-decoration:none;color:var(--text);letter-spacing:.04em;}
+.logo span{color:var(--accent2);font-style:italic;}
+.nav-links{display:flex;align-items:center;gap:2.2rem;}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.82rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:.2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{border:1px solid var(--accent);color:var(--accent) !important;padding:.5rem 1.2rem;border-radius:2px;font-size:.78rem !important;letter-spacing:.1em !important;transition:.2s !important;}
+.nav-cta:hover{background:var(--accent);color:var(--bg) !important;}
+.nav-toggle{display:none;background:none;border:1px solid var(--border);border-radius:4px;width:40px;height:40px;color:var(--text);font-size:1.1rem;cursor:pointer;}
+@media(max-width:880px){.nav-links{position:fixed;top:66px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:color-mix(in srgb,var(--bg) 97%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height .35s;} .nav-links.open{max-height:400px;} .nav-links a{width:100%;padding:.9rem 2.5rem;border-bottom:1px solid var(--border);} .nav-toggle{display:block;}}
+
+/* HERO: Vollbild-Foto mit zentriertem Text */
+#hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;}
+.hero-bg img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.5);}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,16,8,.3) 0%,rgba(12,16,8,.6) 100%);}
+.hero-content{position:relative;z-index:1;text-align:center;padding:2rem;max-width:780px;}
+.hero-eyebrow{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent2);margin-bottom:1.6rem;display:block;}
+h1{font-size:clamp(2.8rem,6vw,5rem);line-height:1.05;font-weight:700;margin-bottom:1.4rem;}
+h1 em{font-style:italic;color:var(--accent2);}
+.hero-p{color:rgba(255,255,255,.7);font-size:1.08rem;max-width:520px;margin:0 auto 2.4rem;line-height:1.7;}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn{padding:.9rem 2.2rem;font-size:.84rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:.2s;letter-spacing:.07em;text-transform:uppercase;}
+.btn-primary{background:var(--accent);color:var(--bg);}
+.btn-primary:hover{background:var(--accent2);}
+.btn-ghost{border:1px solid rgba(255,255,255,.3);color:#fff;}
+.btn-ghost:hover{border-color:var(--accent2);color:var(--accent2);}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:.4rem;}
+.hero-scroll::after{content:'';width:1px;height:36px;background:var(--muted);margin-top:.2rem;animation:scrollpulse 1.8s ease-in-out infinite;}
+@keyframes scrollpulse{0%,100%{transform:scaleY(.5);opacity:.4;}50%{transform:scaleY(1);opacity:1;}}
+
+/* ZIMMER — Fullbleed Kacheln */
+#zimmer{padding:6rem 2rem;max-width:1200px;margin:auto;}
+.s-eyebrow{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent2);font-weight:600;margin-bottom:.6rem;}
+.s-h2{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;margin-bottom:.7rem;line-height:1.15;}
+.s-sub{color:var(--muted);font-size:.95rem;max-width:560px;margin-bottom:2.5rem;}
+.zimmer-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+@media(max-width:720px){.zimmer-grid{grid-template-columns:1fr;}}
+.zimmer-card{border-radius:4px;overflow:hidden;position:relative;background:var(--surface);border:1px solid var(--border);}
+.zimmer-card:first-child{grid-column:span 2;}
+@media(max-width:720px){.zimmer-card:first-child{grid-column:span 1;}}
+.zimmer-photo{aspect-ratio:16/9;overflow:hidden;}
+.zimmer-card:first-child .zimmer-photo{aspect-ratio:21/9;}
+.zimmer-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s;}
+.zimmer-card:hover .zimmer-photo img{transform:scale(1.04);}
+.zimmer-info{padding:1.4rem 1.6rem;}
+.zimmer-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.4rem;}
+.zimmer-desc{font-size:.85rem;color:var(--muted);margin-bottom:.8rem;}
+.zimmer-price{font-size:1rem;color:var(--accent2);font-weight:600;}
+.zimmer-price span{font-size:.75rem;color:var(--muted);font-weight:400;}
+
+/* AUSSTATTUNG */
+#ausstattung{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:5.5rem 2rem;}
+.aust-inner{max-width:1100px;margin:auto;}
+.aust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:2.5rem;}
+@media(max-width:880px){.aust-grid{grid-template-columns:repeat(2,1fr);}}
+.aust-item{text-align:center;padding:1.5rem 1rem;}
+.aust-icon{font-size:1.8rem;margin-bottom:.6rem;}
+.aust-name{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:.3rem;}
+.aust-desc{font-size:.8rem;color:var(--muted);}
+
+/* IMPRESSIONEN */
+#impressionen{padding:5.5rem 2rem;max-width:1200px;margin:auto;}
+.impr-mosaic{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:280px 280px;gap:1rem;margin-top:2.5rem;}
+@media(max-width:760px){.impr-mosaic{grid-template-columns:1fr 1fr;grid-template-rows:auto;}}
+.im-tile{border-radius:3px;overflow:hidden;}
+.im-tile:first-child{grid-row:span 2;}
+@media(max-width:760px){.im-tile:first-child{grid-row:span 1;}}
+.im-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s;}
+.im-tile:hover img{transform:scale(1.04);}
+
+/* KONTAKT */
+#kontakt{background:var(--surface);border-top:1px solid var(--border);padding:5.5rem 2rem;}
+.kont-inner{max-width:1000px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+@media(max-width:720px){.kont-inner{grid-template-columns:1fr;}}
+.kont-left h2{font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:.8rem;}
+.kont-left p{color:var(--muted);margin-bottom:2rem;}
+.k-info{display:flex;flex-direction:column;gap:.8rem;}
+.k-r{display:flex;gap:.8rem;font-size:.9rem;}
+.k-ic{color:var(--accent2);flex-shrink:0;}
+.k-tt{font-size:.72rem;color:var(--muted);}
+.book-card{background:linear-gradient(135deg,var(--surface2),var(--surface));border:1px solid var(--border);border-radius:4px;padding:2.4rem;text-align:center;}
+.book-card h3{font-family:'Playfair Display',serif;font-size:1.6rem;font-style:italic;margin-bottom:.5rem;}
+.book-card p{color:var(--muted);font-size:.88rem;margin-bottom:1.6rem;}
+.hero-twin{margin-top:1.8rem;}
+.hero-visual-inner{border-radius:10px;overflow:hidden;border:1px solid var(--border);box-shadow:0 16px 40px rgba(0,0,0,.5);height:420px;}
+footer{border-top:1px solid var(--border);padding:2rem;text-align:center;color:var(--muted);font-size:.8rem;}
+.f-disc{margin-top:.6rem;font-size:.7rem;opacity:.6;}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.d1.visible{transition-delay:.08s;}.d2.visible{transition-delay:.16s;}.d3.visible{transition-delay:.24s;}.d4.visible{transition-delay:.32s;}
+
+@media(max-width:600px){#tw-itxt,.tw-txt{font-size:16px!important;}}
+</style>
+<style id="tw-css">
+.hero-visual-inner.tw-chat{display:flex;flex-direction:column;background:#0d0d11 !important;padding:0 !important;}
+.hero-visual-inner.tw-chat img{display:none !important;}
+.hero-visual-inner.tw-chat::after{display:none !important;}
+.hero-visual-inner.tw-chat.tw-notilt{transform:none !important;}
+#tw-ihead{padding:14px 16px 12px;border-bottom:1px solid rgba(255,255,255,.08);background:#131318;flex-shrink:0;}
+#tw-ihtop{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+#tw-ibrand{display:flex;align-items:center;gap:8px;}
+#tw-idot{width:9px;height:9px;border-radius:50%;background:#b8952a;box-shadow:0 0 9px #b8952a;animation:twiglow 2.4s ease-in-out infinite;flex-shrink:0;}
+@keyframes twiglow{0%,100%{box-shadow:0 0 5px #b8952a}50%{box-shadow:0 0 16px #b8952a}}
+#tw-iname{font-weight:700;font-size:.92rem;color:#f2f4f7;font-family:'Space Grotesk','Segoe UI',sans-serif;}
+#tw-ibadge{display:inline-flex;align-items:center;gap:5px;font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;color:#666;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:3px 8px;border-radius:6px;font-family:monospace;}
+#tw-imsgs{flex:1;min-height:0;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:9px;}
+#tw-imsgs::-webkit-scrollbar{width:3px;}
+#tw-imsgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:2px;}
+.tw-im{max-width:87%;padding:9px 12px;border-radius:12px;font-size:.83rem;line-height:1.5;white-space:pre-line;font-family:system-ui,sans-serif;word-break:break-word;}
+.tw-im.bot{align-self:flex-start;background:#1a1a22;border:1px solid rgba(255,255,255,.07);color:#f2f4f7;border-bottom-left-radius:4px;}
+.tw-im.usr{align-self:flex-end;color:#0c1008;background:#b8952a;border-bottom-right-radius:4px;font-weight:500;}
+.tw-im.sys{align-self:center;font-size:.62rem;color:#444;text-align:center;padding:2px 6px;font-family:monospace;}
+.tw-idots{display:flex;gap:4px;padding:10px 12px;}
+.tw-idots span{width:5px;height:5px;border-radius:50%;background:#444;animation:twibl 1.2s infinite ease-in-out;}
+.tw-idots span:nth-child(2){animation-delay:.2s;}.tw-idots span:nth-child(3){animation-delay:.4s;}
+@keyframes twibl{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.tw-icard{align-self:flex-start;max-width:94%;background:#1a1a22;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:11px;font-size:.78rem;}
+.tw-icard p{color:#777;margin-bottom:8px;line-height:1.45;}
+.tw-ifi{width:100%;background:#0a0a0d;border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:7px 10px;color:#f2f4f7;font-size:.78rem;margin-bottom:6px;font-family:inherit;box-sizing:border-box;}
+.tw-icard label{display:flex;gap:6px;align-items:flex-start;margin-bottom:8px;color:#999;font-size:.71rem;cursor:pointer;line-height:1.4;}
+.tw-icard input[type=checkbox]{margin-top:2px;accent-color:#b8952a;flex-shrink:0;}
+.tw-icard a{color:#b8952a;}
+.tw-ibtn{width:100%;padding:8px;border-radius:7px;border:none;cursor:pointer;font-weight:700;font-size:.76rem;color:#0c1008;background:#b8952a;transition:opacity .15s;font-family:inherit;display:block;text-align:center;text-decoration:none;box-sizing:border-box;}
+.tw-ibtn:disabled{opacity:.35;cursor:not-allowed;}
+.tw-ibtn2{display:block;width:100%;padding:8px;border-radius:7px;text-align:center;text-decoration:none;font-weight:600;font-size:.76rem;margin-top:6px;color:#f2f4f7;border:1px solid rgba(255,255,255,.13);background:transparent;box-sizing:border-box;font-family:inherit;cursor:pointer;}
+.tw-itel{font-weight:800;letter-spacing:.03em;color:#0c1008;}
+#tw-iqrow{display:flex;gap:6px;padding:0 11px 8px;flex-shrink:0;}
+.tw-iqb{flex:1;padding:6px 5px;border-radius:7px;border:1px dashed rgba(255,255,255,.1);background:transparent;color:#555;font-size:.65rem;cursor:pointer;font-family:inherit;transition:color .15s,border-color .15s;line-height:1.25;}
+.tw-iqb:hover{color:#f2f4f7;border-color:#777;}
+#tw-iirow{display:flex;gap:7px;padding:10px;border-top:1px solid rgba(255,255,255,.07);background:#131318;flex-shrink:0;}
+#tw-itxt{flex:1;background:#0a0a0d;border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:8px 10px;color:#f2f4f7;font-size:.82rem;font-family:inherit;resize:none;line-height:1.35;min-width:0;}
+#tw-itxt:focus{outline:none;border-color:#b8952a88;}
+#tw-isnd{width:37px;height:37px;border-radius:9px;border:none;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#b8952a,#b8952a99);transition:opacity .15s;}
+#tw-isnd:disabled{opacity:.35;cursor:not-allowed;}
+#tw-isnd svg{width:15px;height:15px;color:#0c1008;}
+#tw-ifoot{padding:6px 12px 9px;text-align:center;font-size:.56rem;color:#333;background:#131318;flex-shrink:0;font-family:monospace;letter-spacing:.02em;}
+#tw-ifoot a{color:#444;text-decoration:none;}
+#tw-ifoot a:hover{color:#777;}
+.hero-visual-inner.tw-chat,.hero-visual-inner.tw-chat *{box-sizing:border-box !important;max-width:100% !important;}
+</style>
+</head>
+<body>
+<div class="demo-badge">✨ PREMIUM DEMO · 🏨 Boutique-Hotel</div>
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="logo">Hotel <span>Waldschloss</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menü" aria-expanded="false">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#zimmer">Zimmer</a></li>
+      <li><a href="#ausstattung">Ausstattung</a></li>
+      <li><a href="#impressionen">Impressionen</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="#kontakt" class="nav-cta">Anfragen</a></li>
+    </ul>
+  </div>
+</nav>
+<section id="hero">
+  <div class="hero-bg"><img src="https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Hotel" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow reveal">Boutique-Hotel · Ruhe &amp; Komfort</span>
+    <h1 class="reveal d1">Wo Natur und <em>Luxus</em> sich begegnen.</h1>
+    <p class="hero-p reveal d2">28 Zimmer und Suiten, umgeben von Wald und Stille. Ihr Rückzugsort — für Erholung, Romantik oder den besonderen Anlass.</p>
+    <div class="hero-actions reveal d3">
+      <a href="#kontakt" class="btn btn-primary">Jetzt anfragen</a>
+      <a href="#zimmer" class="btn btn-ghost">Zimmer entdecken</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Entdecken</div>
+</section>
+<section id="zimmer">
+  <div class="reveal"><div class="s-eyebrow">Zimmer &amp; Suiten</div><h2 class="s-h2">Ihr Aufenthalt</h2><p class="s-sub">Jedes Zimmer ein kleines Refugium — mit Blick ins Grüne und allem, was Sie brauchen.</p></div>
+  <div class="zimmer-grid">
+    <div class="zimmer-card reveal"><div class="zimmer-photo"><img src="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Suite" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div><div class="zimmer-info"><div class="zimmer-name">Waldblick-Suite</div><div class="zimmer-desc">40 m², Panoramafenster zum Wald, Kingsize-Bett, freistehende Badewanne, Minibar.</div><div class="zimmer-price">ab 189 € <span>/ Nacht (Beispiel)</span></div></div></div>
+    <div class="zimmer-card reveal d1"><div class="zimmer-photo"><img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Komfort" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div><div class="zimmer-info"><div class="zimmer-name">Komfortzimmer</div><div class="zimmer-desc">24 m², ruhige Lage, Queensize-Bett, modernes Bad, Balkon auf Anfrage.</div><div class="zimmer-price">ab 99 € <span>/ Nacht (Beispiel)</span></div></div></div>
+    <div class="zimmer-card reveal d2"><div class="zimmer-photo"><img src="https://images.pexels.com/photos/1579253/pexels-photo-1579253.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Doppelzimmer" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div><div class="zimmer-info"><div class="zimmer-name">Doppelzimmer Classic</div><div class="zimmer-desc">20 m², 2 Einzelbetten oder Doppelbett, ideal für Geschäftsreisende.</div><div class="zimmer-price">ab 79 € <span>/ Nacht (Beispiel)</span></div></div></div>
+  </div>
+</section>
+<section id="ausstattung">
+  <div class="aust-inner">
+    <div class="reveal"><div class="s-eyebrow">Ausstattung</div><h2 class="s-h2">Was wir bieten</h2></div>
+    <div class="aust-grid">
+      <div class="aust-item reveal d1"><div class="aust-icon">🍳</div><div class="aust-name">Frühstücksbuffet</div><div class="aust-desc">Täglich frisch mit regionalen Produkten</div></div>
+      <div class="aust-item reveal d2"><div class="aust-icon">🌿</div><div class="aust-name">Wellness-Bereich</div><div class="aust-desc">Sauna, Dampfbad, Ruheraum</div></div>
+      <div class="aust-item reveal d3"><div class="aust-icon">💼</div><div class="aust-name">Tagungsraum</div><div class="aust-desc">Für Meetings und Seminare bis 20 Pers.</div></div>
+      <div class="aust-item reveal d4"><div class="aust-icon">🐾</div><div class="aust-name">Haustierfreundlich</div><div class="aust-desc">Hunde herzlich willkommen</div></div>
+      <div class="aust-item reveal"><div class="aust-icon">🚗</div><div class="aust-name">Parkplatz</div><div class="aust-desc">Kostenlos direkt am Haus</div></div>
+      <div class="aust-item reveal d1"><div class="aust-icon">📶</div><div class="aust-name">Kostenloses WLAN</div><div class="aust-desc">Im ganzen Haus verfügbar</div></div>
+      <div class="aust-item reveal d2"><div class="aust-icon">🍷</div><div class="aust-name">Hotelbar</div><div class="aust-desc">Täglich ab 17 Uhr geöffnet</div></div>
+      <div class="aust-item reveal d3"><div class="aust-icon">🛎️</div><div class="aust-name">24h Rezeption</div><div class="aust-desc">Immer für Sie erreichbar</div></div>
+    </div>
+  </div>
+</section>
+<section id="impressionen">
+  <div class="reveal"><div class="s-eyebrow">Impressionen</div><h2 class="s-h2">Ihr Rückzugsort</h2></div>
+  <div class="impr-mosaic">
+    <div class="im-tile reveal"><img src="https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Lobby" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div>
+    <div class="im-tile reveal d1"><img src="https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Restaurant" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div>
+    <div class="im-tile reveal d2"><img src="https://images.pexels.com/photos/261395/pexels-photo-261395.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Garten" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div>
+    <div class="im-tile reveal d3"><img src="https://images.pexels.com/photos/2598638/pexels-photo-2598638.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Pool" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div>
+    <div class="im-tile reveal d4"><img src="https://images.pexels.com/photos/3932890/pexels-photo-3932890.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Sauna" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div>
+  </div>
+</section>
+<section id="kontakt">
+  <div class="kont-inner">
+    <div class="reveal">
+      <h2>Anfragen &amp; Reservieren</h2>
+      <p>Gerne beraten wir Sie persönlich — telefonisch, per E-Mail oder Chat.</p>
+      <div class="k-info">
+        <div class="k-r"><span class="k-ic">📍</span><div><div class="k-tt">Adresse (Beispiel)</div><div>Waldweg 1, 34567 Musterstadt</div></div></div>
+        <div class="k-r"><span class="k-ic">📞</span><div><div class="k-tt">Telefon (Beispiel)</div><div>0123 456781</div></div></div>
+        <div class="k-r"><span class="k-ic">✉️</span><div><div class="k-tt">E-Mail</div><div>info@hotel-waldschloss.de</div></div></div>
+        <div class="k-r"><span class="k-ic">🛎️</span><div><div class="k-tt">Rezeption</div><div>24h erreichbar</div></div></div>
+      </div>
+    </div>
+    <div class="reveal d2">
+      <div class="book-card">
+        <h3>Jetzt anfragen</h3>
+        <p>Ihr Traumurlaub beginnt hier. Unser Team antwortet innerhalb von 24 Stunden.</p>
+        <a href="#kontakt" class="btn btn-primary" style="justify-content:center;">Anfrage senden</a>
+      </div>
+      <div class="hero-twin">
+        <div class="hero-visual-inner tw-chat tw-notilt" id="tw-hero-hotel">
+        <div id="tw-ihead"><div id="tw-ihtop"><div id="tw-ibrand"><span id="tw-idot"></span><span id="tw-iname">Hotel-Assistent</span></div><div id="tw-ibadge">KI · automatisiert</div></div></div>
+        <div id="tw-imsgs"></div>
+        <div id="tw-iqrow"><button class="tw-iqb" id="tw-ihbtn">📞 Anrufen</button><button class="tw-iqb" id="tw-itbtn">🛏️ Zimmer anfragen</button></div>
+        <div id="tw-iirow"><textarea id="tw-itxt" rows="1" placeholder="Nachricht …" aria-label="Nachricht"></textarea><button id="tw-isnd" aria-label="Senden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+        <div id="tw-ifoot">KI-Assistent · kein Mensch · <a href="https://twincoreai.de/impressum-datenschutz#impressum" target="_blank">Impressum</a> · <a href="https://twincoreai.de/impressum-datenschutz#datenschutz" target="_blank">Datenschutz</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div>© 2026 Hotel Waldschloss</div>
+  <div class="f-disc">Demo-Website mit frei erfundenen Inhalten zu Präsentationszwecken (TwinCore AI). Keine reale Firma.</div>
+</footer>
+<script>
+var reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>40);});
+var navToggle=document.getElementById('navToggle');var navLinks=document.getElementById('navLinks');
+navToggle.addEventListener('click',function(){var open=navLinks.classList.toggle('open');navToggle.setAttribute('aria-expanded',open?'true':'false');});
+navLinks.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){navLinks.classList.remove('open');navToggle.setAttribute('aria-expanded','false');});});
+var revealEls=document.querySelectorAll('.reveal');
+if(reduceMotion){revealEls.forEach(function(el){el.classList.add('visible');});}
+else{var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});revealEls.forEach(function(el){io.observe(el);});}
+</script>
+<script>
+(function(){
+"use strict";
+var AK="DEIN-ANTHROPIC-API-KEY";var WK="DEIN-WEB3FORMS-KEY";
+var SYS="Du bist der Hotel-Assistent von Hotel Waldschloss, einem Boutique-Hotel. SALES-ZIEL: Gäste zur Buchung oder Anfrage bewegen. TON: Elegant, einladend, gepflegt. Siezen. USP: 28 Zimmer/Suiten, Wald-Lage, Wellness, Frühstücksbuffet, haustierfreundlich, 24h-Rezeption. PREISE: Doppelzimmer ab 79€, Komfortzimmer ab 99€, Suite ab 189€/Nacht (Beispiele). KONTAKT: info@hotel-waldschloss.de | 0123 456781. EU AI Act Art. 50: Beim ersten Kontakt: 'Willkommen im Hotel Waldschloss! Ich bin Ihr digitaler Assistent und helfe gerne bei Fragen zu Zimmern, Ausstattung oder Reservierungen.' Bei Frage ob KI: Ehrlich Ja. FORMAT: Max 2-3 Sätze. Kein Markdown. Siezen.";
+var WELCOME='Willkommen im Hotel Waldschloss! Ich bin Ihr digitaler Assistent und helfe gerne bei Fragen zu Zimmern, Verfügbarkeit oder besonderen Anlässen — womit kann ich Ihnen behilflich sein?';
+var EM='info@hotel-waldschloss.de',TL='0123 456781';
+var hist=[],hSh=false,tSh=false,rdy=false;
+var msgs=document.getElementById("tw-imsgs"),txt=document.getElementById("tw-itxt"),snd=document.getElementById("tw-isnd"),hbtn=document.getElementById("tw-ihbtn"),tbtn=document.getElementById("tw-itbtn");
+if(!msgs)return;
+function addM(role,text){var el=document.createElement("div");el.className="tw-im "+role;el.textContent=text;msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;return el;}
+function addS(t){addM("sys",t);}
+function dots(){var el=document.createElement("div");el.className="tw-im bot";el.innerHTML='<div class="tw-idots"><span></span><span></span><span></span></div>';msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;return el;}
+function clean(t){return t.replace(/[*][*]/g,"").replace(/^[#]+[ ]*/gm,"").replace(/^[-\u2022][ ]*/gm,"").trim();}
+function intent(t){t=t.toLowerCase();return{h:/\b(anrufen|telefonisch|mensch|mitarbeiter|person)\b/.test(t),t:/\b(termin|buchen|reservier|anfrag|anmeld|zimmer)\b/.test(t)};}
+function init(){if(rdy)return;rdy=true;var d=dots();setTimeout(function(){d.remove();addM("bot",WELCOME);addS("\uD83E\uDD16 KI-Assistent \u00B7 automatisiert \u00B7 kein Mensch.");},500);}
+async function sendMsg(){var t=txt.value.trim();if(!t||snd.disabled)return;addM("usr",t);hist.push({role:"user",content:t});txt.value="";snd.disabled=true;var it=intent(t);if(it.t&&!tSh){tSh=true;showTermin();}else if(it.h&&!hSh){showHuman();}var d=dots();
+try{var r=await fetch("/.netlify/functions/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-5",max_tokens:250,stop_sequences:[".",  "!","?"],system:SYS,messages:hist})});var data=await r.json();var reply=clean((data.content||[]).map(function(b){return b.text||""}).join(""))||"Entschuldigung, technische Schwierigkeiten.";d.remove();addM("bot",reply);hist.push({role:"assistant",content:reply});}catch(e){d.remove();addM("bot","Technische Schwierigkeiten — bitte nutze den Kontakt-Button.");}
+snd.disabled=false;}
+snd.addEventListener("click",sendMsg);
+txt.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMsg();}});
+txt.addEventListener("focus",function(){init();});
+async function sendMail(subj,body,replyTo){if(!WK||WK.startsWith("DEIN")){window.open("mailto:"+EM+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(body),"_blank");return null;}try{var r=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({access_key:WK,subject:subj,from_name:"Chat Widget",replyto:replyTo,message:body})});return!!(await r.json()).success;}catch(e){return false;}}
+function showTermin(){var c=document.createElement("div");c.className="tw-icard";c.innerHTML="<p>Anfrage senden — wir melden uns.</p><input class='tw-ifi' type='text' placeholder='Dein Name' id='tw-ifn'><input class='tw-ifi' type='email' placeholder='Deine E-Mail' id='tw-ife'><input class='tw-ifi' type='text' placeholder='Wunschtermin / Anliegen' id='tw-ifw'><label><input type='checkbox' id='tw-ifc'> Datenschutz akzeptieren. <a href='https://twincoreai.de/impressum-datenschutz#datenschutz' target='_blank'>Details</a></label><button class='tw-ibtn' id='tw-ifs' disabled>Absenden</button>";msgs.appendChild(c);msgs.scrollTop=msgs.scrollHeight;c.querySelector("#tw-ifc").addEventListener("change",function(e){c.querySelector("#tw-ifs").disabled=!e.target.checked;});c.querySelector("#tw-ifs").addEventListener("click",async function(){var fn=c.querySelector("#tw-ifn").value.trim(),fe=c.querySelector("#tw-ife").value.trim(),fw=c.querySelector("#tw-ifw").value.trim();if(!fn||!fe)return;var btn=c.querySelector("#tw-ifs");btn.disabled=true;btn.textContent="Wird gesendet …";var ok=await sendMail("Anfrage von "+fn,"Name: "+fn+"\nE-Mail: "+fe+"\nAnliegen: "+(fw||"-")+"\nQuelle: Chat-Widget",fe);c.remove();if(ok===true){addS("\u2705 Gesendet.");addM("bot","Danke, "+fn+"! Wir melden uns so schnell wie möglich.");}else if(ok===false){addS("\u26A0 Fehler.");addM("bot","Bitte schreib direkt an "+EM+" oder ruf an: "+TL);}else{addS("\u2705 Mail-Entwurf geöffnet.");addM("bot","Bitte im Mail-Programm auf Senden klicken.");}});}
+function showHuman(){if(hSh)return;hSh=true;addS("\uD83D\uDCDE Direktkontakt");var c=document.createElement("div");c.className="tw-icard";c.innerHTML="<p>Direkter Kontakt:</p><a class='tw-ibtn' href='tel:"+TL+"'>\uD83D\uDCDE\u00A0<span class='tw-itel'>"+TL+"</span></a><a class='tw-ibtn2' href='mailto:"+EM+"'>\u2709\uFE0F "+EM+"</a>";msgs.appendChild(c);msgs.scrollTop=msgs.scrollHeight;}
+hbtn.addEventListener("click",showHuman);
+tbtn.addEventListener("click",function(){if(!tSh){tSh=true;showTermin();}});
+if('IntersectionObserver' in window){var tio=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){init();tio.disconnect();}});},{threshold:0.3});var target=document.querySelector('.hero-visual-inner.tw-chat');if(target)tio.observe(target);else init();}else{init();}
+})();
+</script>
+</body>
+</html>
