@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Salon Noir – Demo-Friseursalon | TwinCore AI</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0c0e;--surface:#14141a;--surface2:#1a1a22;--border:rgba(255,255,255,.08);--text:#f5f5f8;--muted:#888;--accent:#e91e8c;--accent2:#ff6ec7;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.65;overflow-x:hidden;}
+h1,h2,h3,.logo{font-family:'Syne',sans-serif;}
+a{color:inherit;}ul{list-style:none;}img{max-width:100%;display:block;}
+::selection{background:color-mix(in srgb,var(--accent) 28%,transparent);}
+@media(prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
+.demo-badge{position:fixed;top:14px;right:14px;z-index:200;background:var(--accent);color:#fff;font-size:.68rem;letter-spacing:.05em;padding:.4rem .7rem;border-radius:999px;pointer-events:none;font-weight:600;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;transition:background .3s;}
+nav.scrolled{background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1160px;margin:auto;}
+.logo{font-size:1.4rem;font-weight:800;text-decoration:none;letter-spacing:.04em;}
+.logo em{color:var(--accent);font-style:normal;}
+.nav-links{display:flex;align-items:center;gap:2rem;}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.88rem;font-weight:500;transition:.2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{border:1px solid var(--accent);color:var(--accent) !important;padding:.5rem 1.1rem;border-radius:999px;transition:.2s !important;}
+.nav-cta:hover{background:var(--accent);color:#fff !important;}
+.nav-toggle{display:none;background:none;border:1px solid var(--border);border-radius:8px;width:40px;height:40px;color:var(--text);font-size:1.1rem;cursor:pointer;}
+@media(max-width:880px){.nav-links{position:fixed;top:64px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:color-mix(in srgb,var(--bg) 97%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height .35s;} .nav-links.open{max-height:400px;} .nav-links a{width:100%;padding:.85rem 2rem;border-bottom:1px solid var(--border);} .nav-toggle{display:block;}}
+
+/* HERO: editorial lookbook — großes Bild links, Text rechts */
+#hero{min-height:100vh;display:grid;grid-template-columns:.95fr 1.05fr;overflow:hidden;padding-top:0;}
+.hero-img{position:relative;overflow:hidden;}
+.hero-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.88);}
+.hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(270deg,var(--bg) 0%,transparent 50%);}
+.hero-right-panel{display:flex;flex-direction:column;justify-content:center;padding:7rem 4rem 5rem 4rem;position:relative;}
+.hero-tag{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:1.6rem;display:flex;align-items:center;gap:.6rem;font-family:'Syne',sans-serif;}
+.hero-tag::before{content:'';width:28px;height:1px;background:var(--accent);}
+h1{font-size:clamp(2.6rem,5.5vw,4.2rem);line-height:1.02;font-weight:800;margin-bottom:1.3rem;}
+h1 em{color:var(--accent);font-style:normal;}
+.hero-p{color:var(--muted);font-size:1rem;max-width:420px;margin-bottom:2.2rem;line-height:1.7;font-family:'Inter',sans-serif;}
+.hero-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:3rem;}
+.btn{padding:.8rem 1.6rem;border-radius:999px;font-weight:600;text-decoration:none;font-size:.88rem;display:inline-flex;align-items:center;gap:.5rem;transition:.2s;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{filter:brightness(1.1);transform:translateY(-2px);}
+.btn-ghost{border:1px solid var(--border);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.hero-twin-area{}
+.hero-visual-inner{border-radius:14px;overflow:hidden;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.5);height:480px;width:100%;max-width:380px;}
+@media(max-width:900px){#hero{grid-template-columns:1fr;}.hero-right{display:none;} .hero-img{height:40vh;} .hero-img::after{background:linear-gradient(180deg,transparent 30%,var(--bg) 100%);} .hero-right-panel{padding:4rem 2rem 4rem;} .hero-visual-inner{max-width:100%;height:420px;}}
+
+/* PREISLISTE — zentrales Element */
+#preisliste{padding:5.5rem 2rem;max-width:1100px;margin:auto;}
+.s-eyebrow{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:.6rem;font-family:'Syne',sans-serif;}
+.s-h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:800;margin-bottom:2.5rem;}
+.preisliste-cols{display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
+@media(max-width:720px){.preisliste-cols{grid-template-columns:1fr;gap:2rem;}}
+.pl-cat{}
+.pl-cat-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);padding-bottom:.6rem;border-bottom:1px solid var(--border);margin-bottom:1rem;}
+.pl-row{display:flex;justify-content:space-between;align-items:baseline;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.9rem;}
+.pl-row:last-child{border-bottom:none;}
+.pl-name{color:var(--text);}
+.pl-price{color:var(--accent);font-weight:600;white-space:nowrap;}
+.pl-note{font-size:.78rem;color:var(--muted);}
+
+/* GALERIE — Lookbook-Raster */
+#galerie{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:5.5rem 2rem;}
+.galerie-inner{max-width:1160px;margin:auto;}
+.galerie-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-top:2.5rem;}
+@media(max-width:760px){.galerie-grid{grid-template-columns:repeat(2,1fr);}}
+.g-tile{border-radius:8px;overflow:hidden;aspect-ratio:3/4;position:relative;}
+.g-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s;}
+.g-tile:hover img{transform:scale(1.06);}
+.g-tile:first-child,.g-tile:last-child{aspect-ratio:3/5;}
+
+/* TEAM */
+#team{padding:5.5rem 2rem;max-width:1100px;margin:auto;}
+.team-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
+@media(max-width:720px){.team-row{grid-template-columns:1fr 1fr;}}
+.team-card{background:var(--surface);border-radius:12px;overflow:hidden;border:1px solid var(--border);}
+.team-photo{aspect-ratio:1/1;overflow:hidden;}
+.team-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+.team-card:hover .team-photo img{transform:scale(1.04);}
+.team-info{padding:1rem 1.2rem;}
+.team-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.2rem;}
+.team-role{font-size:.78rem;color:var(--muted);}
+.team-spec{font-size:.75rem;color:var(--accent);margin-top:.2rem;}
+
+/* KONTAKT */
+#kontakt{background:var(--surface);border-top:1px solid var(--border);padding:5.5rem 2rem;}
+.kont-inner{max-width:1000px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+@media(max-width:720px){.kont-inner{grid-template-columns:1fr;}}
+.kont-left h2{font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:.8rem;}
+.kont-left p{color:var(--muted);margin-bottom:2rem;}
+.k-info{display:flex;flex-direction:column;gap:.8rem;}
+.k-r{display:flex;gap:.8rem;font-size:.9rem;}
+.k-ic{color:var(--accent);flex-shrink:0;}
+.k-tt{font-size:.72rem;color:var(--muted);}
+.map-ph{background:var(--surface2);border:1px solid var(--border);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;color:var(--muted);min-height:220px;}
+footer{border-top:1px solid var(--border);padding:2rem;text-align:center;color:var(--muted);font-size:.8rem;}
+.f-disc{margin-top:.6rem;font-size:.7rem;opacity:.6;}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.d1.visible{transition-delay:.08s;}.d2.visible{transition-delay:.16s;}.d3.visible{transition-delay:.24s;}.d4.visible{transition-delay:.32s;}
+
+@media(max-width:600px){#tw-itxt,.tw-txt{font-size:16px!important;}}
+</style>
+<style id="tw-css">
+.hero-visual-inner.tw-chat{display:flex;flex-direction:column;background:#0d0d11 !important;padding:0 !important;}
+.hero-visual-inner.tw-chat img{display:none !important;}
+.hero-visual-inner.tw-chat::after{display:none !important;}
+.hero-visual-inner.tw-chat.tw-notilt{transform:none !important;}
+#tw-ihead{padding:14px 16px 12px;border-bottom:1px solid rgba(255,255,255,.08);background:#131318;flex-shrink:0;}
+#tw-ihtop{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+#tw-ibrand{display:flex;align-items:center;gap:8px;}
+#tw-idot{width:9px;height:9px;border-radius:50%;background:#e91e8c;box-shadow:0 0 9px #e91e8c;animation:twiglow 2.4s ease-in-out infinite;flex-shrink:0;}
+@keyframes twiglow{0%,100%{box-shadow:0 0 5px #e91e8c}50%{box-shadow:0 0 16px #e91e8c}}
+#tw-iname{font-weight:700;font-size:.92rem;color:#f2f4f7;font-family:'Space Grotesk','Segoe UI',sans-serif;}
+#tw-ibadge{display:inline-flex;align-items:center;gap:5px;font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;color:#666;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:3px 8px;border-radius:6px;font-family:monospace;}
+#tw-imsgs{flex:1;min-height:0;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:9px;}
+#tw-imsgs::-webkit-scrollbar{width:3px;}
+#tw-imsgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:2px;}
+.tw-im{max-width:87%;padding:9px 12px;border-radius:12px;font-size:.83rem;line-height:1.5;white-space:pre-line;font-family:system-ui,sans-serif;word-break:break-word;}
+.tw-im.bot{align-self:flex-start;background:#1a1a22;border:1px solid rgba(255,255,255,.07);color:#f2f4f7;border-bottom-left-radius:4px;}
+.tw-im.usr{align-self:flex-end;color:#fff;background:#e91e8c;border-bottom-right-radius:4px;font-weight:500;}
+.tw-im.sys{align-self:center;font-size:.62rem;color:#444;text-align:center;padding:2px 6px;font-family:monospace;}
+.tw-idots{display:flex;gap:4px;padding:10px 12px;}
+.tw-idots span{width:5px;height:5px;border-radius:50%;background:#444;animation:twibl 1.2s infinite ease-in-out;}
+.tw-idots span:nth-child(2){animation-delay:.2s;}.tw-idots span:nth-child(3){animation-delay:.4s;}
+@keyframes twibl{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.tw-icard{align-self:flex-start;max-width:94%;background:#1a1a22;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:11px;font-size:.78rem;}
+.tw-icard p{color:#777;margin-bottom:8px;line-height:1.45;}
+.tw-ifi{width:100%;background:#0a0a0d;border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:7px 10px;color:#f2f4f7;font-size:.78rem;margin-bottom:6px;font-family:inherit;box-sizing:border-box;}
+.tw-icard label{display:flex;gap:6px;align-items:flex-start;margin-bottom:8px;color:#999;font-size:.71rem;cursor:pointer;line-height:1.4;}
+.tw-icard input[type=checkbox]{margin-top:2px;accent-color:#e91e8c;flex-shrink:0;}
+.tw-icard a{color:#e91e8c;}
+.tw-ibtn{width:100%;padding:8px;border-radius:7px;border:none;cursor:pointer;font-weight:700;font-size:.76rem;color:#fff;background:#e91e8c;transition:opacity .15s;font-family:inherit;display:block;text-align:center;text-decoration:none;box-sizing:border-box;}
+.tw-ibtn:disabled{opacity:.35;cursor:not-allowed;}
+.tw-ibtn2{display:block;width:100%;padding:8px;border-radius:7px;text-align:center;text-decoration:none;font-weight:600;font-size:.76rem;margin-top:6px;color:#f2f4f7;border:1px solid rgba(255,255,255,.13);background:transparent;box-sizing:border-box;font-family:inherit;cursor:pointer;}
+.tw-itel{font-weight:800;letter-spacing:.03em;color:#fff;}
+#tw-iqrow{display:flex;gap:6px;padding:0 11px 8px;flex-shrink:0;}
+.tw-iqb{flex:1;padding:6px 5px;border-radius:7px;border:1px dashed rgba(255,255,255,.1);background:transparent;color:#555;font-size:.65rem;cursor:pointer;font-family:inherit;transition:color .15s,border-color .15s;line-height:1.25;}
+.tw-iqb:hover{color:#f2f4f7;border-color:#777;}
+#tw-iirow{display:flex;gap:7px;padding:10px;border-top:1px solid rgba(255,255,255,.07);background:#131318;flex-shrink:0;}
+#tw-itxt{flex:1;background:#0a0a0d;border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:8px 10px;color:#f2f4f7;font-size:.82rem;font-family:inherit;resize:none;line-height:1.35;min-width:0;}
+#tw-itxt:focus{outline:none;border-color:#e91e8c88;}
+#tw-isnd{width:37px;height:37px;border-radius:9px;border:none;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#e91e8c,#e91e8c99);transition:opacity .15s;}
+#tw-isnd:disabled{opacity:.35;cursor:not-allowed;}
+#tw-isnd svg{width:15px;height:15px;color:#fff;}
+#tw-ifoot{padding:6px 12px 9px;text-align:center;font-size:.56rem;color:#333;background:#131318;flex-shrink:0;font-family:monospace;letter-spacing:.02em;}
+#tw-ifoot a{color:#444;text-decoration:none;}
+#tw-ifoot a:hover{color:#777;}
+.hero-visual-inner.tw-chat,.hero-visual-inner.tw-chat *{box-sizing:border-box !important;max-width:100% !important;}
+</style>
+</head>
+<body>
+<div class="demo-badge">✨ PREMIUM DEMO · ✂️ Friseursalon</div>
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="logo">SALON <em>NOIR</em></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menü" aria-expanded="false">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#preisliste">Preise</a></li>
+      <li><a href="#galerie">Lookbook</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="#kontakt" class="nav-cta">Termin buchen</a></li>
+    </ul>
+  </div>
+</nav>
+<section id="hero">
+  <div class="hero-img">
+    <img src="https://images.pexels.com/photos/3992874/pexels-photo-3992874.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Salon" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';">
+  </div>
+  <div class="hero-right-panel">
+    <div class="hero-tag reveal">Friseursalon · Cut &amp; Color</div>
+    <h1 class="reveal d1">Dein Haar.<br><em>Dein Auftritt.</em></h1>
+    <p class="hero-p reveal d2">Precision Cuts, individuelle Farbkonzepte und Styling, das zu dir gehört — mit 6 Expert:innen und Online-Terminbuchung.</p>
+    <div class="hero-actions reveal d3">
+      <a href="#kontakt" class="btn btn-primary">Termin buchen</a>
+      <a href="#preisliste" class="btn btn-ghost">Preise ansehen</a>
+    </div>
+    <div class="hero-twin-area reveal d4">
+      <div class="hero-visual-inner tw-chat tw-notilt" id="tw-hero-friseur">
+        <div id="tw-ihead"><div id="tw-ihtop"><div id="tw-ibrand"><span id="tw-idot"></span><span id="tw-iname">Salon-Assistent</span></div><div id="tw-ibadge">KI · automatisiert</div></div></div>
+        <div id="tw-imsgs"></div>
+        <div id="tw-iqrow"><button class="tw-iqb" id="tw-ihbtn">📞 Anrufen</button><button class="tw-iqb" id="tw-itbtn">📅 Termin buchen</button></div>
+        <div id="tw-iirow"><textarea id="tw-itxt" rows="1" placeholder="Nachricht …" aria-label="Nachricht"></textarea><button id="tw-isnd" aria-label="Senden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+        <div id="tw-ifoot">KI-Assistent · kein Mensch · <a href="https://twincoreai.de/impressum-datenschutz#impressum" target="_blank">Impressum</a> · <a href="https://twincoreai.de/impressum-datenschutz#datenschutz" target="_blank">Datenschutz</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="preisliste">
+  <div class="reveal"><div class="s-eyebrow">Preisliste</div><h2 class="s-h2">Unsere Leistungen &amp; Preise</h2></div>
+  <div class="preisliste-cols">
+    <div class="pl-cat reveal d1">
+      <div class="pl-cat-name">Damen</div>
+      <div class="pl-row"><span class="pl-name">Waschen, Schneiden, Föhnen</span><span class="pl-price">ab 52 €</span></div>
+      <div class="pl-row"><span class="pl-name">Coloration (ganz)</span><span class="pl-price">ab 75 €</span></div>
+      <div class="pl-row"><span class="pl-name">Balayage / Sombre</span><span class="pl-price">ab 110 €</span></div>
+      <div class="pl-row"><span class="pl-name">Strähnen</span><span class="pl-price">ab 68 €</span></div>
+      <div class="pl-row"><span class="pl-name">Haarpflege-Kur</span><span class="pl-price">ab 22 €</span></div>
+      <div class="pl-row"><span class="pl-name">Brautstyling</span><span class="pl-price">auf Anfrage</span></div>
+      <div style="margin-top:.8rem;font-size:.75rem;color:var(--muted);">* Preise je nach Haarlänge und Aufwand (Beispiele)</div>
+    </div>
+    <div class="pl-cat reveal d2">
+      <div class="pl-cat-name">Herren</div>
+      <div class="pl-row"><span class="pl-name">Schnitt classic</span><span class="pl-price">ab 28 €</span></div>
+      <div class="pl-row"><span class="pl-name">Schnitt + Waschen</span><span class="pl-price">ab 36 €</span></div>
+      <div class="pl-row"><span class="pl-name">Bart trimmen</span><span class="pl-price">ab 18 €</span></div>
+      <div class="pl-row"><span class="pl-name">Color (grau abdecken)</span><span class="pl-price">ab 45 €</span></div>
+      <div style="margin-top:1.5rem;" class="pl-cat-name">Kinder</div>
+      <div class="pl-row"><span class="pl-name">Kinder bis 10 J.</span><span class="pl-price">ab 18 €</span></div>
+      <div class="pl-row"><span class="pl-name">Jugendliche</span><span class="pl-price">ab 24 €</span></div>
+    </div>
+  </div>
+</section>
+<section id="galerie">
+  <div class="galerie-inner">
+    <div class="reveal"><div class="s-eyebrow">Lookbook</div><h2 class="s-h2">Inspirationen</h2></div>
+    <div class="galerie-grid">
+      <div class="g-tile reveal"><img src="https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Look 1" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div>
+      <div class="g-tile reveal d1"><img src="https://images.pexels.com/photos/3764568/pexels-photo-3764568.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Look 2" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div>
+      <div class="g-tile reveal d2"><img src="https://images.pexels.com/photos/3992870/pexels-photo-3992870.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Look 3" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div>
+      <div class="g-tile reveal d3"><img src="https://images.pexels.com/photos/3993296/pexels-photo-3993296.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Look 4" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div>
+    </div>
+  </div>
+</section>
+<section id="team">
+  <div class="reveal"><div class="s-eyebrow">Das Team</div><h2 class="s-h2">Deine Expert:innen</h2></div>
+  <div class="team-row">
+    <div class="team-card reveal d1"><div class="team-photo"><img src="https://images.pexels.com/photos/3993454/pexels-photo-3993454.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mia" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div><div class="team-info"><div class="team-name">Mia Schreiber</div><div class="team-role">Chefstyle & Creative Director</div><div class="team-spec">✂️ Balayage · Precision Cut</div></div></div>
+    <div class="team-card reveal d2"><div class="team-photo"><img src="https://images.pexels.com/photos/3992879/pexels-photo-3992879.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Lea" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div><div class="team-info"><div class="team-name">Lea Brandt</div><div class="team-role">Color Specialist</div><div class="team-spec">🎨 Coloration · Strähnen</div></div></div>
+    <div class="team-card reveal d3"><div class="team-photo"><img src="https://images.pexels.com/photos/3764119/pexels-photo-3764119.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Jonas" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='#1a1a1a';"></div><div class="team-info"><div class="team-name">Jonas Kern</div><div class="team-role">Men's Cuts & Barbering</div><div class="team-spec">💈 Herren · Bart</div></div></div>
+  </div>
+</section>
+<section id="kontakt">
+  <div class="kont-inner">
+    <div class="reveal">
+      <h2>Termin buchen</h2>
+      <p>Online rund um die Uhr — oder ruf uns direkt an.</p>
+      <div class="k-info">
+        <div class="k-r"><span class="k-ic">📍</span><div><div class="k-tt">Adresse (Beispiel)</div><div>Schlossstraße 18, 34567 Musterstadt</div></div></div>
+        <div class="k-r"><span class="k-ic">📞</span><div><div class="k-tt">Telefon (Beispiel)</div><div>0123 456781</div></div></div>
+        <div class="k-r"><span class="k-ic">🕒</span><div><div class="k-tt">Öffnungszeiten</div><div>Di–Fr 9–19 Uhr · Sa 9–17 Uhr</div></div></div>
+      </div>
+      <a href="#kontakt" class="btn btn-primary" style="margin-top:1.6rem;display:inline-flex;">Termin buchen</a>
+    </div>
+    <div class="map-ph reveal d2"><span style="font-size:2rem;opacity:.5">🗺️</span><span>Kartenansicht (Platzhalter)</span></div>
+  </div>
+</section>
+<footer>
+  <div>© 2026 Salon Noir</div>
+  <div class="f-disc">Demo-Website mit frei erfundenen Inhalten zu Präsentationszwecken (TwinCore AI). Keine reale Firma.</div>
+</footer>
+<script>
+var reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>40);});
+var navToggle=document.getElementById('navToggle');var navLinks=document.getElementById('navLinks');
+navToggle.addEventListener('click',function(){var open=navLinks.classList.toggle('open');navToggle.setAttribute('aria-expanded',open?'true':'false');});
+navLinks.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){navLinks.classList.remove('open');navToggle.setAttribute('aria-expanded','false');});});
+var revealEls=document.querySelectorAll('.reveal');
+if(reduceMotion){revealEls.forEach(function(el){el.classList.add('visible');});}
+else{var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});revealEls.forEach(function(el){io.observe(el);});}
+</script>
+<script>
+(function(){
+"use strict";
+var AK="DEIN-ANTHROPIC-API-KEY";var WK="DEIN-WEB3FORMS-KEY";
+var SYS="Du bist der Salon-Assistent von Salon Noir. SALES-ZIEL: Kunden für Termin begeistern. TON: Stylish, selbstbewusst, freundlich. USP: 6 Expert:innen, Precision Cuts, Balayage-Spezialist:innen, Online-Buchung. LEISTUNGEN: Damen ab 52€, Herren ab 28€, Color ab 45€, Balayage ab 110€. ÖFFNUNGSZEITEN: Di–Fr 9–19h, Sa 9–17h. KONTAKT: info@salon-noir.de | 0123 456781. EU AI Act Art. 50: Beim ersten Kontakt: 'Hey! Ich bin der digitale Assistent von Salon Noir. Termin, Preise oder Styling-Fragen? Ich helfe dir weiter.' Bei Frage ob KI: Ehrlich Ja. FORMAT: Max 2-3 Sätze. Kein Markdown. Duzen.";
+var WELCOME='Hey! Ich bin der digitale Assistent von Salon Noir. Termin buchen, Preise checken oder einen Look besprechen — ich bin für dich da!';
+var EM='info@salon-noir.de',TL='0123 456781';
+var hist=[],hSh=false,tSh=false,rdy=false;
+var msgs=document.getElementById("tw-imsgs"),txt=document.getElementById("tw-itxt"),snd=document.getElementById("tw-isnd"),hbtn=document.getElementById("tw-ihbtn"),tbtn=document.getElementById("tw-itbtn");
+if(!msgs)return;
+function addM(role,text){var el=document.createElement("div");el.className="tw-im "+role;el.textContent=text;msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;return el;}
+function addS(t){addM("sys",t);}
+function dots(){var el=document.createElement("div");el.className="tw-im bot";el.innerHTML='<div class="tw-idots"><span></span><span></span><span></span></div>';msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;return el;}
+function clean(t){return t.replace(/[*][*]/g,"").replace(/^[#]+[ ]*/gm,"").replace(/^[-\u2022][ ]*/gm,"").trim();}
+function intent(t){t=t.toLowerCase();return{h:/\b(anrufen|telefonisch|mensch|mitarbeiter|person)\b/.test(t),t:/\b(termin|buchen|reservier|anfrag|anmeld|zimmer)\b/.test(t)};}
+function init(){if(rdy)return;rdy=true;var d=dots();setTimeout(function(){d.remove();addM("bot",WELCOME);addS("\uD83E\uDD16 KI-Assistent \u00B7 automatisiert \u00B7 kein Mensch.");},500);}
+async function sendMsg(){var t=txt.value.trim();if(!t||snd.disabled)return;addM("usr",t);hist.push({role:"user",content:t});txt.value="";snd.disabled=true;var it=intent(t);if(it.t&&!tSh){tSh=true;showTermin();}else if(it.h&&!hSh){showHuman();}var d=dots();
+try{var r=await fetch("/.netlify/functions/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-5",max_tokens:250,stop_sequences:[".",  "!","?"],system:SYS,messages:hist})});var data=await r.json();var reply=clean((data.content||[]).map(function(b){return b.text||""}).join(""))||"Entschuldigung, technische Schwierigkeiten.";d.remove();addM("bot",reply);hist.push({role:"assistant",content:reply});}catch(e){d.remove();addM("bot","Technische Schwierigkeiten — bitte nutze den Kontakt-Button.");}
+snd.disabled=false;}
+snd.addEventListener("click",sendMsg);
+txt.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMsg();}});
+txt.addEventListener("focus",function(){init();});
+async function sendMail(subj,body,replyTo){if(!WK||WK.startsWith("DEIN")){window.open("mailto:"+EM+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(body),"_blank");return null;}try{var r=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({access_key:WK,subject:subj,from_name:"Chat Widget",replyto:replyTo,message:body})});return!!(await r.json()).success;}catch(e){return false;}}
+function showTermin(){var c=document.createElement("div");c.className="tw-icard";c.innerHTML="<p>Anfrage senden — wir melden uns.</p><input class='tw-ifi' type='text' placeholder='Dein Name' id='tw-ifn'><input class='tw-ifi' type='email' placeholder='Deine E-Mail' id='tw-ife'><input class='tw-ifi' type='text' placeholder='Wunschtermin / Anliegen' id='tw-ifw'><label><input type='checkbox' id='tw-ifc'> Datenschutz akzeptieren. <a href='https://twincoreai.de/impressum-datenschutz#datenschutz' target='_blank'>Details</a></label><button class='tw-ibtn' id='tw-ifs' disabled>Absenden</button>";msgs.appendChild(c);msgs.scrollTop=msgs.scrollHeight;c.querySelector("#tw-ifc").addEventListener("change",function(e){c.querySelector("#tw-ifs").disabled=!e.target.checked;});c.querySelector("#tw-ifs").addEventListener("click",async function(){var fn=c.querySelector("#tw-ifn").value.trim(),fe=c.querySelector("#tw-ife").value.trim(),fw=c.querySelector("#tw-ifw").value.trim();if(!fn||!fe)return;var btn=c.querySelector("#tw-ifs");btn.disabled=true;btn.textContent="Wird gesendet …";var ok=await sendMail("Anfrage von "+fn,"Name: "+fn+"\nE-Mail: "+fe+"\nAnliegen: "+(fw||"-")+"\nQuelle: Chat-Widget",fe);c.remove();if(ok===true){addS("\u2705 Gesendet.");addM("bot","Danke, "+fn+"! Wir melden uns so schnell wie möglich.");}else if(ok===false){addS("\u26A0 Fehler.");addM("bot","Bitte schreib direkt an "+EM+" oder ruf an: "+TL);}else{addS("\u2705 Mail-Entwurf geöffnet.");addM("bot","Bitte im Mail-Programm auf Senden klicken.");}});}
+function showHuman(){if(hSh)return;hSh=true;addS("\uD83D\uDCDE Direktkontakt");var c=document.createElement("div");c.className="tw-icard";c.innerHTML="<p>Direkter Kontakt:</p><a class='tw-ibtn' href='tel:"+TL+"'>\uD83D\uDCDE\u00A0<span class='tw-itel'>"+TL+"</span></a><a class='tw-ibtn2' href='mailto:"+EM+"'>\u2709\uFE0F "+EM+"</a>";msgs.appendChild(c);msgs.scrollTop=msgs.scrollHeight;}
+hbtn.addEventListener("click",showHuman);
+tbtn.addEventListener("click",function(){if(!tSh){tSh=true;showTermin();}});
+if('IntersectionObserver' in window){var tio=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){init();tio.disconnect();}});},{threshold:0.3});var target=document.querySelector('.hero-visual-inner.tw-chat');if(target)tio.observe(target);else init();}else{init();}
+})();
+</script>
+</body>
+</html>
